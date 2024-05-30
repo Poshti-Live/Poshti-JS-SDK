@@ -1,0 +1,41 @@
+{
+  "name": "poshti",
+  "version": "1.0.1",
+  "private": true,
+  "repository": "https://github.com/Poshti-Live/Poshti-JS-SDK.git",
+  "license": "MIT",
+  "author": "Amir.H Ebrahimi <amirhosseinebrahimi77@gmail.com>",
+  "sideEffects": false,
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "require": "./index.js",
+      "import": "./index.mjs",
+      "types": "./index.d.ts"
+    }
+  },
+  "main": "./index.js",
+  "module": "./index.mjs",
+  "types": "./index.d.ts",
+  "files": ["**"],
+  "scripts": {
+    "build": "tsup --dts",
+    "postbuild": "yarn copy:package-json && yarn copy:statics",
+    "copy:statics": "cp LICENSE README.md dist",
+    "copy:package-json": "cp package.json dist && json -I -f dist/package.json -e 'this.private=false; this.devDependencies=undefined; this.scripts=undefined; this.publishConfig=undefined'",
+    "package": "yarn && yarn build && yarn postbuild && cd dist && npm pack",
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "happy-dom": "^14.7.1",
+    "jsdom": "^24.0.0",
+    "json": "^11.0.0",
+    "mock-socket": "^9.3.1",
+    "prettier": "3.2.5",
+    "sinon": "^17.0.1",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.5",
+    "vitest": "^1.5.2"
+  },
+  "packageManager": "yarn@4.1.1"
+}
